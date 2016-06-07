@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.IEvent_BoardDao">
+	<!-- 목록보기 -->
+	<select id="list" resultType="com.kosta.project.dto.EventBoardDto" parameterType="java.util.HashMap">
+		select * from (select A.*,ROWNUM r from(select * from event_board order by e_no desc) A) where r>=#{start} and r &lt;= #{end}
+	</select> 
+	<!-- 글쓰기 -->
+	<insert id="write" parameterType="com.kosta.project.dto.EventBoardDto">
+		insert into
+		event_board
+		values(event_board_seq.nextval,#{e_title},#{e_writer},sysdate,0,#{e_contents})
+	</insert>
+	<!-- 상세보기 -->
+	<select id="contentView" parameterType="String" resultType="com.kosta.project.dto.EventBoardDto">
+		select * from event_board where e_no=#{e_no}
+	</select>
+	<!-- 조회수증가 -->
+	<update id="readcount">
+		update event_board set e_hit=e_hit+1 where e_no=#{e_no}
+	</update>
+	<!-- 총게시물갯수받아오기 -->
+	<select id="getListCount" resultType="java.lang.Integer">
+		select count(*) from event_board
+	</select>
+	<!-- 삭제하기 -->
+	<delete id="delete" parameterType="String">
+		delete event_board where e_no=#{e_no}
+	</delete>
+	<!-- 수정하기 -->
+	<update id="modify" parameterType="com.kosta.project.dto.EventBoardDto">
+		update event_board set e_writer=#{e_writer}, e_title=#{e_title}, e_contents=#{e_contents}
+		where e_no=#{e_no}
+	</update>
+	
+	<!-- back단에서 search -->
+	<select id="backpage_search_bytitle" resultType="com.kosta.project.dto.EventBoardDto" parameterType="java.util.HashMap">
+		select * from (select * from (select A.*,ROWNUM r from(select * from event_board order by e_no desc) A) where r>=#{start} and r &lt;= #{end}) 
+		<where>
+		<if test="dataForSearch !=''">
+			e_title like#{dataForSearch}		
+			<if test="dataFrom!='' and dataTo==''"> 
+				and e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+			
+		</if>  
+		
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	<select id="backpage_search_byno" resultType="com.kosta.project.dto.EventBoardDto" parameterType="java.util.HashMap">
+		select * from (select * from (select A.*,ROWNUM r from(select * from event_board order by e_no desc) A) where r>=#{start} and r &lt;= #{end}) 
+		<where>
+		<if test="dataForSearch !=''">
+			e_no like#{dataForSearch}		
+			<if test="dataFrom!='' and dataTo==''">
+				and e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+			
+		</if>
+		
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select> 
+	<!-- 뒷단에서 검색한게시물갯수받아오기 -->
+	<select id="getListCount_back1" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from event_board 
+		<where>
+		<if test="dataForSearch !=''">
+			e_title like#{dataForSearch}
+			<if test="dataFrom!='' and dataTo==''">
+				and e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	<select id="getListCount_back2" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from event_board 
+		<where>
+		<if test="dataForSearch !=''">
+			e_no like#{dataForSearch}
+			<if test="dataFrom!='' and dataTo==''">
+				and e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or e_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or e_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or e_regdate &gt; #{dataFrom} and e_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	<!-- 댓글입력 -->
+	<insert id="insertComment" parameterType="com.kosta.project.dto.EventBoardCommentDto">
+		insert into event_comment(e_no, COMMENT_SEQ, COMMENT_NAME,COMMENT_COMM,COMMENT_REGDATE)
+		values(#{e_no},COMMENT_SEQ.nextval,#{comment_name},#{comment_comm},sysdate)
+	</insert>
+	<!-- 댓글 출력 -->
+	<select id="ListComment"  parameterType="String" resultType="com.kosta.project.dto.EventBoardCommentDto">
+				select * from event_comment where e_no=#{e_no} order by e_no desc
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="commentDelete" parameterType="String">
+			delete event_comment where comment_seq = #{comment_seq}
+	
+	</delete>
+	<!-- 삭제시 댓글삭제용도 -->
+	<delete id="deletecomment" parameterType="String">
+		delete event_comment where E_NO=#{e_no}	
+	</delete>
+</mapper>

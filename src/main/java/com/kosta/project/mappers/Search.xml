@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.ISearchDao">
+	<select id="searchAllCount" resultType="Integer">
+		select count(*) 
+		from (
+			select p_no as no from recipe_theme_Products where p_title like '%' || #{searchKeyword} || '%'
+			union all
+			select s_no as no from farm_Products where s_title like '%' || #{searchKeyword} || '%'
+		)
+	</select>
+	<select id="searchAll_onePage" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+		select B.*, rowseq from(
+			select A.*, rownum as rowseq from(
+				select * from(
+					select p_title as title, id, p_no as no, p_contentFile as contentFile, p_thumbFile as thumbFile, p_category1 as category1, p_category2 as category2, ' ' category3, p_price as price, p_regdate as regdate 
+					from recipe_theme_Products
+					where p_title like '%' || #{searchKeyword} || '%'
+					
+					union all
+					
+					select s_title as title, id, s_no as no, s_contentFile as contentFile, s_thumbFile as thumbFile, ' ' category1, ' ' category2, s_category as category3, s_price as price, s_regdate as regdate  
+					from farm_Products
+					where s_title like '%' || #{searchKeyword} || '%'
+				) order by regdate desc
+			) A 
+		) B where rowseq between #{startRow} and #{endRow}
+	</select>
+</mapper>

@@ -1,0 +1,17 @@
+@CHARSET "EUC-KR";
+
+.active_btn span.glyphicon {             
+   opacity: 0;      
+}
+.active_btn.active span.glyphicon {            
+   opacity: 1;   
+    
+}
+
+.btn-defatul {
+   border: 1px solid lightgray;
+}
+
+#style-button {
+	height: 45px;
+}

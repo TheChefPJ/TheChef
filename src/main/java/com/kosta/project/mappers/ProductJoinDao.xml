@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.IProductJoinDao">
+<!-- 상품 전체 조회/수정 조건 검사 -->
+   <select id="searchDetailJoin" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+
+   		select s_title as title, id, s_no as no, s_contentFile as contentFile, s_thumbFile as thumbFile, ' ' category1, ' ' category2, s_category as category3, s_price as price, s_regdate as regdate  from farm_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		s_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	s_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					s_category like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					s_regdate &gt; #{startRegdate} and s_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					s_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					s_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+
+union all
+
+   		select p_title as title, id, p_no as no, p_contentFile as contentFile, p_thumbFile as thumbFile, p_category1 as category1, p_category2 as category2, ' ' category3, p_price as price, p_regdate as regdate from recipe_theme_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		p_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	p_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					p_category1 like '%' || #{searchKeyword} || '%' or p_category2 like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					p_regdate &gt; #{startRegdate} and p_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					p_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					p_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+   </select>
+   
+   <!-- 상품조회/수정 레시피테마 검색 -->
+	<select id="searchDetailRTP" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+   		select p_title as title, id, p_no as no, p_contentFile as contentFile, p_thumbFile as thumbFile, p_category1 as category1, p_category2 as category2, ' ' category3, p_price as price, p_regdate as regdate from recipe_theme_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		p_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	p_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					p_category1 like '%' || #{searchKeyword} || '%' or p_category2 like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					p_regdate &gt; #{startRegdate} and p_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					p_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					p_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+   </select>
+   <!-- 상품 조회/수정 골라담기 조건 검사 -->
+   <select id="searchDetailFarm" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+   		select s_title as title, id, s_no as no, s_contentFile as contentFile, s_thumbFile as thumbFile, ' ' category1, ' ' category2, s_category as category3, s_price as price, s_regdate as regdate  from farm_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		s_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	s_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					s_category like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					s_regdate &gt; #{startRegdate} and s_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					s_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					s_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+   		</select>
+   		
+   		<!-- 상품 전체 조회/수정 조건 검사 -->
+   <select id="onePage_searchDetailJoin" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+	select B.*, rowseq from(
+		select A.*, rownum as rowseq from(
+			select * from(
+		   		select s_title as title, id, s_no as no, s_contentFile as contentFile, s_thumbFile as thumbFile, ' ' category1, ' ' category2, s_category as category3, s_price as price, s_regdate as regdate  from farm_Products
+		   			<where>
+		   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+		   				(
+		   				</if>
+		   				<if test="searchNo != null">
+				    		s_no like '%' || #{searchKeyword} || '%'
+				    	</if>
+				    	<if test="searchTitle != null">
+				    	  	<if test="searchNo!=null">
+								or
+							</if>
+				    	    	s_title like '%' || #{searchKeyword} || '%'
+				    	</if>
+						<if test="searchWriter != null">
+							<if test="searchNo!=null||searchTitle!=null">
+								or
+							</if>					
+							id like '%' || #{searchKeyword} || '%'
+						</if>  
+						<if test="searchCategory != null">
+							<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+								or
+							</if>
+							s_category like '%' || #{searchKeyword} || '%'
+						</if>
+						<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+		   					)
+		   				</if>
+		   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+		   						and
+		   				</if>
+						<if test="startRegdate!='' and endRegdate!=''">
+							s_regdate &gt; #{startRegdate} and s_regdate &lt; #{endRegdate}
+						</if>
+						<if test="startRegdate!='' and endRegdate==''">
+							s_regdate &gt; #{startRegdate}
+						</if>
+						<if test="startRegdate=='' and  endRegdate!=''">
+							s_regdate &lt; #{endRegdate}
+						</if>
+		   			</where>
+		
+		union all
+		
+		   		select p_title as title, id, p_no as no, p_contentFile as contentFile, p_thumbFile as thumbFile, p_category1 as category1, p_category2 as category2, ' ' category3, p_price as price, p_regdate as regdate from recipe_theme_Products
+		   			<where>
+		   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+		   				(
+		   				</if>
+		   				<if test="searchNo != null">
+				    		p_no like '%' || #{searchKeyword} || '%'
+				    	</if>
+				    	<if test="searchTitle != null">
+				    	  	<if test="searchNo!=null">
+								or
+							</if>
+				    	    	p_title like '%' || #{searchKeyword} || '%'
+				    	</if>
+						<if test="searchWriter != null">
+							<if test="searchNo!=null||searchTitle!=null">
+								or
+							</if>					
+							id like '%' || #{searchKeyword} || '%'
+						</if>  
+						<if test="searchCategory != null">
+							<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+								or
+							</if>
+							p_category1 like '%' || #{searchKeyword} || '%' or p_category2 like '%' || #{searchKeyword} || '%'
+						</if>
+						<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+		   					)
+		   				</if>
+		   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+		   						and
+		   				</if>
+						<if test="startRegdate!='' and endRegdate!=''">
+							p_regdate &gt; #{startRegdate} and p_regdate &lt; #{endRegdate}
+						</if>
+						<if test="startRegdate!='' and endRegdate==''">
+							p_regdate &gt; #{startRegdate}
+						</if>
+						<if test="startRegdate=='' and  endRegdate!=''">
+							p_regdate &lt; #{endRegdate}
+						</if>
+		   			</where>
+		   		) order by regdate desc
+		   	)A
+	   	)B where rowseq between #{startRow} and #{endRow}
+   </select>
+   
+   <!-- 상품조회/수정 레시피테마 검색 -->
+	<select id="onePage_searchDetailRTP" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+select B.*, rowseq from(
+	select A.*, rownum as rowseq from(
+   		select p_title as title, id, p_no as no, p_contentFile as contentFile, p_thumbFile as thumbFile, p_category1 as category1, p_category2 as category2, ' ' category3, p_price as price, p_regdate as regdate from recipe_theme_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		p_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	p_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					p_category1 like '%' || #{searchKeyword} || '%' or p_category2 like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					p_regdate &gt; #{startRegdate} and p_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					p_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					p_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+   		order by regdate desc
+   	)A
+)B where rowseq between #{startRow} and #{endRow}
+   </select>
+   <!-- 상품 조회/수정 골라담기 조건 검사 -->
+   <select id="onePage_searchDetailFarm" parameterType="hashMap" resultType="com.kosta.project.dto.ProductJoinDto">
+select B.*, rowseq from(
+	select A.*, rownum as rowseq from(
+   		select s_title as title, id, s_no as no, s_contentFile as contentFile, s_thumbFile as thumbFile, ' ' category1, ' ' category2, s_category as category3, s_price as price, s_regdate as regdate  from farm_Products
+   			<where>
+   				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   				(
+   				</if>
+   				<if test="searchNo != null">
+		    		s_no like '%' || #{searchKeyword} || '%'
+		    	</if>
+		    	<if test="searchTitle != null">
+		    	  	<if test="searchNo!=null">
+						or
+					</if>
+		    	    	s_title like '%' || #{searchKeyword} || '%'
+		    	</if>
+				<if test="searchWriter != null">
+					<if test="searchNo!=null||searchTitle!=null">
+						or
+					</if>					
+					id like '%' || #{searchKeyword} || '%'
+				</if>  
+				<if test="searchCategory != null">
+					<if test="searchNo!=null||searchTitle!=null||searchWriter!=null">
+						or
+					</if>
+					s_category like '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null">
+   					)
+   				</if>
+   				<if test="(searchNo!=null||searchTitle!=null||searchWriter!=null||searchCategory!=null) and (startRegdate!=''||endRegdate!='')">
+   						and
+   				</if>
+				<if test="startRegdate!='' and endRegdate!=''">
+					s_regdate &gt; #{startRegdate} and s_regdate &lt; #{endRegdate}
+				</if>
+				<if test="startRegdate!='' and endRegdate==''">
+					s_regdate &gt; #{startRegdate}
+				</if>
+				<if test="startRegdate=='' and  endRegdate!=''">
+					s_regdate &lt; #{endRegdate}
+				</if>
+   			</where>
+   			order by regdate desc
+   	)A
+)B where rowseq between #{startRow} and #{endRow}
+   		</select>
+   		
+</mapper>

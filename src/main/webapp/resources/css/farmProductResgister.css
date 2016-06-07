@@ -1,0 +1,86 @@
+@CHARSET "EUC-KR";
+.top_nav {
+    position: relative;
+    z-index: 110;
+    width: 100%;
+    min-width: 1020px;
+    height: 100px;
+    background: #00d2b9;
+    top: 40px;
+    padding: 20px 30px 20px 50px;
+    align: float;
+    
+}
+.top_nav .fr {
+    width: auto;
+    height: 40px;
+}
+.fr {
+    float: right !important;
+}
+.top_nav .save {
+    border-color: #00a894;
+    background: #00b5a6;
+}
+.top_nav .btn_type2 {
+    width: 70px;
+    height: 20px;
+    padding-top: 10px;
+    font-weight: bold;
+    line-height: 12px;
+}
+.btn_type2 {
+    display: inline-block;
+    border: 1px solid #25baa8;
+    border-radius: 2px;
+        text-align: center;
+    color: #fff;
+        zoom: 1;
+}
+#content{
+    width: 920px;
+    padding: 50px 50px 100px;
+}
+fieldset {
+    border: 0;
+        display: block;
+}
+div{
+	display:block;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+
+/* named upload */
+.filebox .upload-name {
+    display: inline-block;
+    padding: .5em .75em;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+}
+.filebox label {
+  color: #fff;
+  background-color: #337ab7;
+    border-color: #2e6da4;
+}

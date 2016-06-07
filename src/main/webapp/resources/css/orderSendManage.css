@@ -1,0 +1,238 @@
+@CHARSET "EUC-KR";
+#container {
+    zoom: 1;
+}
+#content {
+    padding: 30px 20px 85px;
+    zoom: 1;
+}
+div {
+    display: block;
+}
+#content {
+    padding: 30px 20px 85px;
+    zoom: 1;
+}
+.hd2_wrap {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 40px;
+    border-bottom: 2px solid #454545;
+    margin-bottom : 30px;
+}
+.h_sell2 {
+    width: 103px;
+    background-position: 0 -800px;
+}
+.hd2 {
+    display: block;
+    height: 19px;
+    background: url(https://sell.storefarm.naver.com/static/img.shop.naver.net/storefarm/admin/sp_tit_v9_20151229.gif) no-repeat;
+}
+.fl {
+    float: left !important;
+}
+.blue_box_wrap .blue_box {
+    margin-top: 0;
+    padding: 17px 20px 15px;
+}
+.blue_box {
+    clear: both;
+    margin-top: 20px;
+    padding: 17px 24px 15px;
+    border: 4px solid #dbecf3;
+    background: #f9fcfd;
+    zoom: 1;
+}
+.case_lst2.v2 {
+    position: relative;
+}
+.case_lst2 {
+    clear: both;
+    padding: 0 6px;
+    zoom: 1;
+}
+.case_lst2 .stit {
+    color: #666;
+}
+ul, ol {
+    margin-bottom: 15px;
+
+    list-style: none;
+}
+.case_lst2 li {
+    float: left;
+}
+.case_lst2 dt, .case_lst2 dd, .case_lst2 li {
+    display: inline;
+    height: 18px;
+    line-height: 18px;
+}
+
+em {
+    font-style: normal;
+}
+.case_lst2 a.num {
+    font-weight: bold;
+    color: #00b5a6;
+    text-decoration: none;
+}
+.case_lst2 .bar {
+    padding: 0 7px 0 3px;
+    color: #dbecf3;
+}
+.case_lst2 .stit {
+    color: #666;
+}
+.blue_box_wrap .srch_tmp {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    
+    padding: 15px 0 0 !important;
+    border: 0 !important;
+    border-top: 1px solid #dbecf3 !important;
+}
+.srch_tmp {
+    overflow: hidden;
+    clear: both;
+    zoom: 1;
+}
+form {
+    display: block;
+}
+.blue_box_wrap .srch_tmp .srch_ct {
+    border-right-color: #dbecf3 !important;
+}
+.srch_tmp .srch_ct {
+    float: left;
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #e1e1e1;
+}
+.srch_tmp .srch_ct select + .bar {
+    margin-left: -1px;
+    padding-left: 0;
+}
+.srch_tmp .srch_ct .bar {
+    padding: 0 6px 0 5px;
+    color: #e1e1e1;
+}
+.srch_tmp .srch_ct select {
+    margin-right: 6px;
+}
+.srch_tmp .srch_ct .line {
+    margin-top: 7px;
+}
+input.ipt {
+    height: 18px;
+    padding-left: 5px;
+    border: 1px solid;
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+    line-height: 18px;
+    vertical-align: top;
+}
+.srch_tmp input.ipt, .srch_tmp input.ipt:focus, .srch_tmp input.ipt_on {
+    border-color: #c9c9c9 #ebebeb #ebebeb #c9c9c9;
+}
+.srch_tmp .srch_ct .line {
+    margin-top: 7px;
+}
+select {
+    vertical-align: middle;
+}
+.hd_wrap {
+    clear: both;
+    width: 100%;
+    padding: 30px 0 9px;
+    zoom: 1;
+}
+.hd_wrap {
+    clear: both;
+    width: 100%;
+    padding: 30px 0 9px;
+    zoom: 1;
+}
+.hd_wrap .hd3 {
+    margin: 0;
+    padding-right: 10px;
+}
+h3.hd3, #pop_content .hd2, h4.hd3 {
+    padding-left: 8px;
+    color: #222;
+    font-size: 12px;
+    font-weight: bold;
+}
+.fl {
+    float: left !important;
+}
+.srch_tmp {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 25px;
+    border: 4px solid #f3f3f3;
+    zoom: 1;
+}
+div {
+    display: block;
+}
+.srch_tmp {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 25px;
+    border: 4px solid #f3f3f3;
+    zoom: 1;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+.srch_tmp {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 25px;
+    border: 4px solid #f3f3f3;
+    zoom: 1;
+}
+.srch_tmp .detail_area {
+    padding-bottom: 10px;
+}
+.srch_tmp .case_lst2 {
+    float: left;
+    padding: 2px 0 0;
+}
+.case_lst2 {
+    clear: both;
+    padding: 0 6px;
+    zoom: 1;
+}
+.srch_tmpl {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 25px;
+    border: 4px solid #f3f3f3;
+    zoom: 1;
+}
+.srch_tmp .case_lst2_v2 {
+    padding-bottom: 10px;
+}
+.srch_tmp .case_lst2 {
+    float: left;
+    padding: 2px 0 0;
+}
+.case_lst2 {
+    clear: both;
+    padding: 0 6px;
+    zoom: 1;
+}
+.case_lst2.v3 {
+    padding: 15px 0 0 0;
+}
+.case_lst2 {
+    clear: both;
+    padding: 0 6px;
+    zoom: 1;
+}
+.fr {
+    float: right !important;
+}

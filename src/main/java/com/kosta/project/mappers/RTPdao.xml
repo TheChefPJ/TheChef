@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.IRTPdao">
+   <!-- 레시피/테마 글쓰기 -->
+   <insert id="RTP_write" parameterType="com.kosta.project.dto.RTPdto">
+      insert into
+      recipe_theme_Products
+      (p_title, id, p_no, p_contentFile, p_thumbFile, p_price, p_category1, p_category2, p_regdate)
+      values(#{p_title}, #{id}, #{p_no}, #{p_contentFile}, #{p_thumbFile}, #{p_price}, #{p_category1}, #{p_category2}, sysdate)
+   </insert>   
+   <!-- 레시피/테마 글삭제 -->
+   <delete id="RTP_delete">
+      delete recipe_theme_Products where p_no = #{p_no}
+   </delete>
+   <!-- 레시피/테마 p_no에 해당하는 전체 선택 -->
+   <select id="RTP_selectAll" resultType="com.kosta.project.dto.RTPdto">
+      select * from recipe_theme_Products where p_no=#{p_no}
+   </select>
+   <!-- 레시피/테마 글수정 update -->
+   <update id="RTP_update" parameterType="com.kosta.project.dto.RTPdto">
+      update recipe_theme_Products 
+      set p_title=#{p_title}, p_contentFile=#{p_contentFile}, p_thumbFile=#{p_thumbFile}, p_price=#{p_price}, p_category1=#{p_category1}, p_category2=#{p_category2} where p_no=#{p_no} 
+   </update>
+   <!-- 레시피 카테고리순 리스트 SELECT recipe -->
+   <select id="recipe_listAll" resultType="com.kosta.project.dto.RTPdto">
+      select * from recipe_theme_Products order by p_category1
+   </select>
+   <!-- 레시피 카테고리별 검색 SELECT recipe p_category1 -->
+   <select id="recipe_listCategory" resultType="com.kosta.project.dto.RTPdto">
+      select * from recipe_theme_Products where p_category1=#{p_category1}
+   </select>
+   <!-- 테마 카테고리순 리스트 SELECT theme -->
+   <select id="theme_listAll" resultType="com.kosta.project.dto.RTPdto">
+      select * from recipe_theme_Products order by p_category2
+   </select>
+   <!-- 테마 카테고리별 검색 SELECT theme p_category2 -->
+   <select id="theme_listCategory" resultType="com.kosta.project.dto.RTPdto">
+      select * from recipe_theme_Products where p_category2=#{p_category2}
+   </select>
+   <!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ recipe전체 -->
+   <select id="recipe_onePageList" resultType="com.kosta.project.dto.RTPdto">
+      select * from(select A.*, rownum r from (select * from recipe_theme_Products order by p_category1) A) where r between #{_startRow} and #{_endRow}
+   </select> 
+   <!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ recipe카테고리별 -->
+   <select id="recipe_onePageListCategory" resultType="com.kosta.project.dto.RTPdto">
+      select * from(select A.*, rownum r from (select * from recipe_theme_Products where p_category1=#{_p_category1}) A) where r between #{_startRow} and #{_endRow}
+   </select> 
+   <!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ theme전체 -->
+   <select id="theme_onePageList" resultType="com.kosta.project.dto.RTPdto">
+      select * from(select A.*, rownum r from (select * from recipe_theme_Products order by p_category2) A) where r between #{_startRow} and #{_endRow}
+   </select> 
+   <!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ recipe카테고리별 -->
+   <select id="theme_onePageListCategory" resultType="com.kosta.project.dto.RTPdto">
+      select * from(select A.*, rownum r from (select * from recipe_theme_Products where p_category2=#{_p_category2}) A) where r between #{_startRow} and #{_endRow}
+   </select> 
+   <!-- 레시피 테마 테이블 전체 데이터 갯수 구하기 -->
+   <select id="RTP_countAll" resultType="int">
+   	select count(p_no) from recipe_theme_Products 
+   </select>
+</mapper>

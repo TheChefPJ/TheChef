@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.IFarmProductDao">
+	<!-- 골라담기 상품 insert -->
+	<insert id="farmProduct_write" parameterType="com.kosta.project.dto.FarmProductDto">
+		insert into
+		farm_Products
+		(s_title, id, s_no, s_contentFile, s_thumbFile, s_price, s_category, s_regdate)
+		values(#{s_title}, #{id}, #{s_no}, #{s_contentFile}, #{s_thumbFile}, #{s_price}, #{s_category}, sysdate)
+	</insert>
+	<!-- 골라담기 상품 전체선택 -->
+	<select id="farmProduct_list" resultType="com.kosta.project.dto.FarmProductDto">
+		select * from farm_Products
+	</select>
+	<!-- 골라담기 상품 카테고리별 선택 -->
+	<select id="farmProduct_listCategory" resultType="com.kosta.project.dto.FarmProductDto">
+		select * from farm_Products where s_category=#{s_category}
+	</select>
+	<!-- s_no에 해당하는 골라담기 상품 select -->
+	<select id="farmProduct_selectAll" resultType="com.kosta.project.dto.FarmProductDto">
+		select * from farm_Products where s_no=#{s_no}
+	</select>
+	<!-- s_no에 해당하는 골라담기 상품 delete -->
+	<delete id="farmProduct_delete">
+		delete farm_Products where s_no=#{s_no}
+	</delete>
+	
+	<!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ recipe전체 -->
+	<select id="farmProduct_onePageList" resultType="com.kosta.project.dto.FarmProductDto">
+		select * from (select A.*, rownum r from (select * from farm_Products order by s_category) A) where r between #{_startRow} and #{_endRow}
+	</select> 
+	<!-- 페이징처리 위해 해당 페이지에 출력될 내용 뽑기 _ recipe카테고리별 -->
+	<select id="farmProduct_onePageListCategory" resultType="com.kosta.project.dto.FarmProductDto">
+		select * from (select A.*, rownum r from (select * from farm_Products where s_category=#{_s_category}) A) where r between #{_startRow} and #{_endRow}
+	</select> 
+	<!-- 골라담기 테이블 전체 데이터 갯수 구하기 -->
+   <select id="farmProduct_countAll" resultType="int">
+   		select count(s_no) from farm_Products 
+   </select>
+   		<!-- 골라담기 글수정 update -->
+	   <update id="farmProduct_update" parameterType="com.kosta.project.dto.FarmProductDto">
+	      update farm_Products 
+	      set s_title=#{s_title}, s_contentFile=#{s_contentFile}, s_thumbFile=#{s_thumbFile}, s_price=#{s_price}, s_category=#{s_category} where s_no=#{s_no} 
+	   </update>
+</mapper>

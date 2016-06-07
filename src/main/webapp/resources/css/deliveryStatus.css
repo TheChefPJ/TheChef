@@ -1,0 +1,90 @@
+@CHARSET "EUC-KR";
+#content {
+    padding: 30px 20px 85px;
+    zoom: 1;
+}
+.hd2_wrap {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 40px;
+    margin:10px;
+    border-bottom: 3px solid #454545;
+}
+.h_sell3 {
+    width: 94px;
+    background-position: 0 -825px;
+}
+.hd2 {
+    display: block;
+    height: 19px;
+}
+.fl {
+    float: left !important;
+}
+.blue_box_wrap {
+    position: relative;
+    width: 100%;
+}
+.blue_box_wrap .blue_box {
+    margin-top: 0;
+    padding: 17px 20px 15px;
+}
+.blue_box {
+    clear: both;
+    margin-top: 20px;
+    padding: 17px 24px 15px;
+    border: 4px solid #dbecf3;
+    background: #f9fcfd;
+    zoom: 1;
+}
+.case_lst2.v2 {
+    position: relative;
+}
+.case_lst2 {
+    clear: both;
+    padding: 0 6px;
+    zoom: 1;
+}
+ul, ol {
+    list-style: none;
+}
+.case_lst2 li {
+    float: left;
+}
+.case_lst2 dt, .case_lst2 dd, .case_lst2 li {
+    display: inline;
+    height: 18px;
+    line-height: 18px;
+}
+.case_lst2 .stit {
+    color: #666;
+}
+em, address {
+    font-style: normal;
+}
+.case_lst2 a.num {
+    font-weight: bold;
+    color: #00b5a6;
+    text-decoration: none;
+}
+.case_lst2 .bar {
+    padding: 0 7px 0 3px;
+    color: #dbecf3;
+}
+.case_lst2 .stit {
+    color: #666;
+}
+.blue_box_wrap .srch_tmp {
+    margin-top: 15px;
+    padding: 15px 0 0 !important;
+    border: 0 !important;
+    border-top: 1px solid #dbecf3 !important;
+}
+.srch_tmp {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 25px;
+    border: 4px solid #f3f3f3;
+    zoom: 1;
+}

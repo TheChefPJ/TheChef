@@ -9,12 +9,13 @@ public class RTPdto {
 	String p_title, id, p_no, p_contentFile, p_thumbFile, p_category1, p_category2;
 	int p_price;
 	Date p_regdate;
-
+	String p_src;
+	
 	// constructor
 	public RTPdto() {}
 
 	public RTPdto(String p_title, String id, String p_no, String p_contentFile, String p_thumbFile, String p_category1,
-			String p_category2, int p_price, Date p_regdate) {
+			String p_category2, int p_price, Date p_regdate, String p_src, List<CommonsMultipartFile> files) {
 		this.p_title = p_title;
 		this.id = id;
 		this.p_no = p_no;
@@ -24,8 +25,10 @@ public class RTPdto {
 		this.p_category2 = p_category2;
 		this.p_price = p_price;
 		this.p_regdate = p_regdate;
+		this.p_src = p_src;
+		this.files = files;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////
 	//다중 파일 업로드 upload CommonsMultipartFile 하나이상 필요////
 	private List<CommonsMultipartFile> files;
@@ -111,5 +114,12 @@ public class RTPdto {
 	public void setP_regdate(Date p_regdate) {
 		this.p_regdate = p_regdate;
 	}
-	
+
+	public String getP_src() {
+		return p_src;
+	}
+
+	public void setP_src(String p_src) {
+		this.p_src = p_src;
+	}
 }

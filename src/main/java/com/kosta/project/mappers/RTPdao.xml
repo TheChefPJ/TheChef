@@ -8,8 +8,8 @@
    <insert id="RTP_write" parameterType="com.kosta.project.dto.RTPdto">
       insert into
       recipe_theme_Products
-      (p_title, id, p_no, p_contentFile, p_thumbFile, p_price, p_category1, p_category2, p_regdate)
-      values(#{p_title}, #{id}, #{p_no}, #{p_contentFile}, #{p_thumbFile}, #{p_price}, #{p_category1}, #{p_category2}, sysdate)
+      (p_title, id, p_no, p_contentFile, p_thumbFile, p_price, p_category1, p_category2, p_regdate, p_src)
+      values(#{p_title}, #{id}, #{p_no}, #{p_contentFile}, #{p_thumbFile}, #{p_price}, #{p_category1}, #{p_category2}, sysdate, #{p_src})
    </insert>   
    <!-- 레시피/테마 글삭제 -->
    <delete id="RTP_delete">

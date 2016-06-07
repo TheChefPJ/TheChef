@@ -182,11 +182,29 @@ div{
                   <h4 class=""><label>상품썸네일이미지</label></h4>
                   <input type="file" name="files[1]" required="required">
                   
+                  <h4 class=""><label>레시피 영상</label></h4>
+                  <input type="text" name="p_src" id="p_src" title="주소" size="100" required="required" placeholder="src">
                   <br><br>
                   <div>
                      <input type="submit" class="btn_type2" value="상품등록"> 
                      <input type="reset" class="btn_type2" value="취소"> 
-                  </div>                 
+                  </div>
+                  <!-- 
+                  <p>
+                   <h4>상품상세</h4>
+                  <textarea rows="10" cols="130"></textarea>
+                  
+                  <h4>상품 이미지 </h4>
+                  <div class="image_form">
+                     <input    type="hidden" name="" class="" value=""> 
+                     <div class="filebox file_upload_button">
+                                <input class="upload-name" value="이미지 찾기" disabled="disabled" style="width: 200px;">
+
+                               <label for="input_file">업로드</label> 
+                            </div>
+                     
+                     
+                  </div>    -->                  
                </fieldset>
          </form>
       </div>

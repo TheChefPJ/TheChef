@@ -25,6 +25,9 @@
 <link href="resources/css/ConsumerDealList.css" rel="stylesheet">
 <link href="resources/css/SellerDealList.css" rel="stylesheet">
 <link href="resources/css/member.css" rel="stylesheet">
+<link href="resources/css/detailpage.css" rel="stylesheet">
+<link href="resources/css/review_write.css" rel="stylesheet">
+<link href="resources/css/checkout.css" rel="stylesheet">
 </head>
 <body>
 	<%-- <header><jsp:include page="front/main/header.jsp" /></header>

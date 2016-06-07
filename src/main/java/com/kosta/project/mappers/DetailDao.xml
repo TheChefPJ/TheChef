@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.IDetailDao">
+	<!-- 목록보기 -->
+	<select id="rtpList" resultType="com.kosta.project.dto.RTPdto">
+		select * from recipe_theme_Products where p_no = #{_p_no}
+	</select>
+	<select id="reviewList" resultType="com.kosta.project.dto.RecipeReviewDTO">
+		select * from recipe_review where r_no = #{_r_no}
+	</select>
+	<select id="searchOnePage" resultType="com.kosta.project.dto.RecipeReviewDTO">
+		select B.*, rowseq from (
+		select A.*, rownum as rowseq from(
+		select * from recipe_review where r_no = #{_r_no} 
+		order by reg_date desc
+		)A )B where rowseq between #{_startRow} and #{_endRow}
+	</select>
+	<insert id="insertReview" parameterType="com.kosta.project.dto.RecipeReviewDTO">
+		insert into recipe_review(r_no, id, score, r_review, r_title) values (#{r_no}, #{id}, #{score}, #{r_review}, #{r_title})
+	</insert>
+	<insert id="insertCheckOut">
+		insert into check_out(c_no, id, c_price, count, shipping_fee, c_total_price, c_name, c_address, c_zip_code, c_phone) 
+		values(#{c_no},#{id},#{c_price},#{count},#{shipping_fee},#{c_total_price},#{c_name},#{c_address},#{c_zip_code},#{c_phone})
+	</insert>
+	<delete id="deleteCheckOut">
+		delete from check_out where c_no = #{_c_no} and id = #{_id}
+	</delete>
+	
+	
+</mapper>

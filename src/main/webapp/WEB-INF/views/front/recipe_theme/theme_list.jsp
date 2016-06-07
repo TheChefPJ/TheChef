@@ -11,15 +11,14 @@
 			<div class="col-xs-12 col-sm-6 col-md-3  imglist">
 				<div class="col-item">
 					<div class="photo">
-						<a href="#"><img src="upload/RTP/${list.p_thumbFile}"
-							class="img-responsive" alt="a" /></a>
+						<a href="recipe_details?p_no=${list.p_no}&code=${1}"><img src="upload/RTP/${list.p_thumbFile}" class="img-responsive" alt="a" /></a>
 					</div>
 					<div class="info">
 
 						<div class="row namesize">
 							<div>
 								<h6>Recipe >> ${list.p_category2}</h6>
-								<a href="#"><h5>${list.p_title}</h5></a>
+								<a href="recipe_details?p_no=${list.p_no}&code=${2}"><h5>${list.p_title}</h5></a>
 							</div>
 							<!-- <div class="rating hidden-sm col-md-6">
                         <i class="price-text-color fa fa-star"></i>

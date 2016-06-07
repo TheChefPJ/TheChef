@@ -12,11 +12,12 @@ public class CartJoinDTO {
 	private int total_price;
 	private int total_count;
 	private int p_price;
+	private int category2;
 	
 	public CartJoinDTO() {}
 
 	public CartJoinDTO(String p_thumbFile, String fno, String fid, String p_category1, String p_title, Date reg,
-			int total_price, int total_count, int p_price) {
+			int total_price, int total_count, int p_price, int category2) {
 		this.p_thumbFile = p_thumbFile;
 		this.fno = fno;
 		this.fid = fid;
@@ -26,6 +27,7 @@ public class CartJoinDTO {
 		this.total_price = total_price;
 		this.total_count = total_count;
 		this.p_price = p_price;
+		this.category2 = category2;
 	}
 
 	public int getP_price() {
@@ -98,5 +100,13 @@ public class CartJoinDTO {
 
 	public void setTotal_count(int total_count) {
 		this.total_count = total_count;
+	}
+
+	public int getCategory2() {
+		return category2;
+	}
+
+	public void setCategory2(int category2) {
+		this.category2 = category2;
 	}
 }

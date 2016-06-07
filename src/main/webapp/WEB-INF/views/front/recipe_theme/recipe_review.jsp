@@ -57,26 +57,6 @@
          window.close();
       }
    }
-   
-   function removeCart(fno){
-      var result = "";
-         var count = 0;
-         var p_code = [];
-         var j = 0;
-         var url = "";
-         var q = confirm("정말 삭제하시겠습니까?");
-         if (q == true) {
-            alert("삭제되었습니다.");
-            
-            p_code[0] = fno;
-            //alert(document.aform.chk.length);
-            
-            url = "deleteCart?f_no=" + p_code[0];
-            location.href = url;
-         } else {
-            window.close();
-         }
-   }
 </script>
 </head>
 <body>
@@ -132,7 +112,7 @@
                            </c:if>
                         </div>
                      </td>
-                     <td class="col-sm-2 col-md-2 text-center"> <!-- 상품명 -->
+                     <td class="col-sm-2 col-md-2" style="text-align: center"> <!-- 상품명 -->
                         <a href="recipe_details?p_no=${list.fno}"><big><b>${list.p_title}</b></big></a>
                         	<c:if test="${list.category2==1}">
                            		<br> <br> <small> 레시피/테마 >> ${list.p_category1}</small>
@@ -141,7 +121,7 @@
                            		<br> <br> <small> 재료 골라담기 >> ${list.p_category1}</small>
                            </c:if>
                      </td>
-                     <td class="col-sm-2 col-md-2 text-center" > 
+                     <td class="col-sm-2 col-md-2" > 
                         ${list.total_count}개
                      </td>
                      <td class="col-sm-2 col-md-2 text-center">${list.p_price}<strong></strong></td> <!-- 가격 -->
@@ -201,28 +181,6 @@
                      <br><br><br>
                   </td>
                </tr>
-                  <tr>
-                     <td> </td>
-                     <td> </td>
-                     <td>
-                        <button type="button" class="btn btn-default" onclick="javascript:document.location='index'">
-                           <span class="glyphicon glyphicon-shopping-cart"></span>
-                           Continue Shopping
-                        </button>
-                     </td>
-                     <td>
-                        <button type="button" class="btn btn-default" onclick="send()">
-                           <span class="glyphicon glyphicon-trash"></span>
-                           Delete
-                        </button>
-                     </td>
-                     <td>
-                        <button type="button" class="btn btn-default" onclick="">
-                           <span class="glyphicon glyphicon-credit-card"></span>
-                           Check Out
-                        </button>
-                     </td>
-                  </tr>
                </tbody>
             </table>
          </div>

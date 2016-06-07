@@ -24,7 +24,7 @@
 		select A.*, rownum as rowseq from (
 		select * from (
 			select p_thumbFile, fno, fid, p_category1, p_title, reg, total_price,
-			total_count, p_price
+			total_count, p_price, 1 category2
 			from (select p.p_thumbFile, f.f_no as fno, f.id as fid, p.p_category1,
 			p.p_title, f.reg_date as reg, f.f_total_price as total_price,
 			f.f_total_count as total_count, p.p_price
@@ -32,7 +32,7 @@
 			f.id=#{_id})
 			union all
 			select p_thumbFile, fno, fid, p_category1, p_title, reg, total_price,
-			total_count, p_price
+			total_count, p_price, 2 category2
 			from (select p.s_thumbFile as p_thumbFile, f.f_no as fno, f.id as fid,
 			p.s_category as p_category1, p.s_title as p_title, f.reg_date as reg,
 			f.f_total_price as total_price, f.f_total_count as total_count,

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.ICustomerCenterDao">
+	<!-- 목록보기 -->
+	<select id="list" resultType="com.kosta.project.dto.FrequentQuestionDTO" parameterType="java.util.HashMap">
+		select * from (select A.*,ROWNUM r from(select * from frequent_question order by fq_no desc) A) where r>=#{start} and r &lt;= #{end}
+	</select> 
+	<!-- 총게시물갯수받아오기 -->
+	<select id="getListCount" resultType="java.lang.Integer">
+		select count(*) from frequent_question
+	</select>
+	<!-- 카테고리별목록보기 -->
+	<select id="listbycategory" resultType="com.kosta.project.dto.FrequentQuestionDTO" parameterType="java.util.HashMap">
+		select * from (select A.*,ROWNUM r from(select * from frequent_question order by fq_no desc) A) where r>=#{start} and r &lt;= #{end} and FQ_CATEGORY=#{det}
+	</select> 
+	<select id="getListCount2" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from frequent_question where fq_category=#{det}
+	</select>
+	
+	<!-- 글쓰기 -->
+	<insert id="write" parameterType="com.kosta.project.dto.FrequentQuestionDTO">
+		insert into
+		frequent_question
+		values(frequent_question_seq.nextval,#{fq_category},#{fq_title},#{fq_contents})
+	</insert>
+</mapper>

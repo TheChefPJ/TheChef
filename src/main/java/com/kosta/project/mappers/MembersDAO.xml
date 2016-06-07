@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.kosta.project.dao.IMembersDAO">
+	    <insert id="insert" parameterType="com.kosta.project.dto.MembersDTO">
+	    	insert into member (id, name, password, gender, address, phone, birth, email, zip_code)
+	    	values(#{id}, #{name}, #{password}, #{gender}, #{address}, #{phone}, #{birth}, #{email}, #{zip_code})
+	    </insert>
+	    <insert id="insertRole" parameterType="com.kosta.project.dto.RoleDTO">
+	    	insert into role (id, role_name) values(#{id}, #{role_name})
+	    </insert>
+	    <select id="getUserid" parameterType="String" resultType="int">
+			select count(id) from member where id=#{id}
+		</select>
+		<select id="checkId" resultType="String">
+	    	select id from member where name = #{_name} and email = #{_email}
+	    </select>
+	    <select id="idselectAll" resultType="com.kosta.project.dto.MembersDTO">
+     		 select * from member where id=#{id}
+   		</select>
+   		<update id="editMember">
+     	 	update member
+     	 	set password=#{password}, gender=#{gender}, address=#{address}, phone=#{phone}, birth=#{birth}, email=#{email}, zip_code=#{zip_code} where id=#{id}
+   		</update>
+   		<delete id="deleteMember">
+   			delete member where password=#{password}
+   		</delete>
+    </mapper>

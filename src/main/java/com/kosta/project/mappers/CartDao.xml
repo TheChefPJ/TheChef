@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.ICartDao">
+	<!-- 목록보기 -->
+	<select id="cartList" resultType="com.kosta.project.dto.CartDTO">
+		select * from cart where id = #{_id}
+	</select>
+	<select id="findExist" resultType="com.kosta.project.dto.CartDTO">
+		select * from cart where id = #{_id} and f_no = #{_f_no}
+	</select>
+	<select id="findTotalCount" resultType="java.lang.Integer">
+		select f_total_count from cart where id = #{_id} and f_no = #{_f_no}
+	</select>
+	<select id="searchOnePage" resultType="com.kosta.project.dto.CartJoinDTO">
+		<!-- select p_thumbFile, fno, fid, p_category1, p_title, reg, total_price, total_count, p_price
+		from (select rownum as rowseq, p_thumbFile, fno, fid, p_category1, p_title, reg, total_price, total_count, p_price
+		from (select p.p_thumbFile, f.f_no as fno, f.id as fid, p.p_category1, p.p_title, f.reg_date as reg, f.f_total_price as total_price, f.f_total_count as total_count, p.p_price 
+		from recipe_theme_Products p, cart f where p.p_no=f.f_no and f.id=#{_id} order by reg desc) order by rowseq asc) where rowseq between #{_startRow} and #{_endRow} -->
+		select B.*, rowseq from(
+		select A.*, rownum as rowseq from (
+		select * from (
+			select p_thumbFile, fno, fid, p_category1, p_title, reg, total_price,
+			total_count, p_price
+			from (select p.p_thumbFile, f.f_no as fno, f.id as fid, p.p_category1,
+			p.p_title, f.reg_date as reg, f.f_total_price as total_price,
+			f.f_total_count as total_count, p.p_price
+			from recipe_theme_Products p, cart f where p.p_no=f.f_no and
+			f.id=#{_id})
+			union all
+			select p_thumbFile, fno, fid, p_category1, p_title, reg, total_price,
+			total_count, p_price
+			from (select p.s_thumbFile as p_thumbFile, f.f_no as fno, f.id as fid,
+			p.s_category as p_category1, p.s_title as p_title, f.reg_date as reg,
+			f.f_total_price as total_price, f.f_total_count as total_count,
+			p.s_price as p_price
+			from farm_Products p, cart f where p.s_no=f.f_no and f.id=#{_id})
+		) order by reg desc
+		)A )B where rowseq between #{_startRow} and #{_endRow}
+	</select>
+	
+	<insert id="insertCart">
+		insert into cart(f_no, id, reg_date, f_total_price, f_total_count)
+		values(#{_f_no},#{_id},#{_reg_date},#{_f_total_price},#{_f_total_count})
+	</insert>
+	<delete id="deleteCart">
+		delete from cart where id = #{_id} and f_no = #{_f_no}
+	</delete>
+	<update id="updateCart"> 
+		update cart set f_total_count = #{_f_total_count}, f_total_price = #{_f_total_price} where id = #{_id} and f_no = #{_f_no}
+	</update>
+</mapper>

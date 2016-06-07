@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true" />
+		<security:access-denied-handler error-page="/403" /> <!-- 접근 불가 페이지 만났을 때 -->
+		<security:intercept-url pattern="/login" access="isAnonymous()"/> <!-- 로그인 페이지 접근 -->
+		<security:intercept-url pattern="/join" access="isAnonymous()"/> <!-- 회원가입 페이지 접근 -->
+		<security:intercept-url pattern="/RTP_writeView" access="hasAnyRole('ROLE_ADMIN','ROLE_COP')"/>
+		<!-- use-expressions를 써야지 isAnonymous()같은 표현식이 사용 가능 -->
+		
+		<security:form-login 
+			username-parameter="username"
+			password-parameter="password"
+			login-processing-url="/j_spring_security_check"
+			login-page="/login" 
+			authentication-failure-url="/login?error" 
+			default-target-url="/index"
+			always-use-default-target="true"
+			/> 
+		<!-- login-processing-url 로그인 페이지 form action에 입력할 주소 지정 -->
+	   <!-- always-use-default-target="true" 는 로그인 인증 성공시 무조건 default-target-url 속성 값 보여주기 -->
+		<!-- Spring security에서 j_spring_security_check 에서 반환된 사용자 정보를 이용. password가 일치하는지 확인 -->
+			
+  		<security:logout logout-success-url="/index" /> <!-- 로그아웃이 성공했을 때 default-target-url : 로그인 성공후 이동될 페이지-->   
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!-- <security:user-service>
+				<security:user name="user" password="123" authorities="ROLE_USER"/>
+				<security:user name="admin" password="123" authorities="ROLE_ADMIN,ROLE_USER"/>
+			</security:user-service> -->
+			
+			<security:jdbc-user-service data-source-ref="dataSource"
+                                     users-by-username-query="SELECT ID AS USERNAME, PASSWORD, 1 ENABLED FROM MEMBER WHERE ID=?" 
+                                   authorities-by-username-query="SELECT M.ID AS USERNAME, R.ROLE_NAME AS AUTHORITY
+                                   									FROM MEMBER M JOIN ROLE R 
+                                   									ON M.ID = R.ID 
+                                   									WHERE M.ID=?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<!-- usersByUsernameQuery : 사용자 인증을 위해 사용자 테이블에서 사용자정보를 조회한다.
+	authoritiesByUsernameQuery : 사용자 인증을 위해 사용자권한 테이블에서 사용자권한정보를 조회한다. -->
+</beans>

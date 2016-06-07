@@ -1,0 +1,76 @@
+/* 마이페이지 */
+table {
+	border-collapse: collapse;
+	border: 1px solid lightsalmon;
+	font: normal 90%/140% arial, helvetica, sans-serif;
+	color: #555;
+	background: #fff;
+	margin: auto;
+}
+
+table td {
+	padding: 10px;
+}
+
+input[type=submit], input[type=reset], input[type=button], button{
+	border: 1px solid #ff8570;
+	background: #ff8570;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ff8570),
+		to(#ff8570));
+	background: -webkit-linear-gradient(top, #ff8570, #ff8570);
+	background: -moz-linear-gradient(top, #ff8570, #ff8570);
+	background: -ms-linear-gradient(top, #ff8570, #ff8570);
+	background: -o-linear-gradient(top, #ff8570, #ff8570);
+	background-image: -ms-linear-gradient(top, #ff8570 0%, #ff8570 100%);
+	padding: 2px 9px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(255, 255, 255, 0.4) 0 1px 0;
+	-moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(255, 255, 255, 0.4) 0 1px 0;
+	box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+		rgba(255, 255, 255, 0.4) 0 1px 0;
+	text-shadow: #ff8570 0 1px 0;
+	color: #ffffff;
+	font-family: Dotum;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover, button:hover{
+	border: 1px solid #ff5436;
+	text-shadow: #ff5436 0 1px 0;
+	background: #ff5436;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ff5436),
+		to(#ff5436));
+	background: -webkit-linear-gradient(top, #ff5436, #ff5436);
+	background: -moz-linear-gradient(top, #ff5436, #ff5436);
+	background: -ms-linear-gradient(top, #ff5436, #ff5436);
+	background: -o-linear-gradient(top, #ff5436, #ff5436);
+	background-image: -ms-linear-gradient(top, #ff5436 0%, #ff5436 100%);
+	color: #fffaff;	
+}
+
+input[type=submit]:active, input[type=reset]:active, input[type=button]:active, button:active{
+	text-shadow: #ff2200 0 1px 0;
+	border: 1px solid #ff2200;
+	background: #ff2200;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ff2200),
+		to(#ff5436));
+	background: -webkit-linear-gradient(top, #ff2200, #ff2200);
+	background: -moz-linear-gradient(top, #ff2200, #ff2200);
+	background: -ms-linear-gradient(top, #ff2200, #ff2200);
+	background: -o-linear-gradient(top, #ff2200, #ff2200);
+	background-image: -ms-linear-gradient(top, #ff2200 0%, #ff2200 100%);
+	color: #fff;	
+}
+
+input[type=text]{
+	font: normal 90%/140% arial, helvetica, sans-serif;
+	border: 1px solid #ff8570;
+	border-radius: 5px;
+	height: 27px;
+/* 	width: 200px;	 */
+}

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- myBatis -->
+<mapper namespace="com.kosta.project.dao.INotice_BoardDao">
+	<!-- 목록보기 -->
+	<select id="list" resultType="com.kosta.project.dto.NoticeBoardDto" parameterType="java.util.HashMap">
+		select * from (select A.*,ROWNUM r from(select * from notice_board order by n_no desc) A) where r>=#{start} and r &lt;= #{end}
+	</select> 
+	<!-- 글쓰기 -->
+	<insert id="write" parameterType="com.kosta.project.dto.NoticeBoardDto">
+		insert into
+		notice_board
+		values(notice_board_seq.nextval,#{n_title},#{n_writer},sysdate,0,#{n_contents})
+	</insert>
+	<!-- 상세보기 -->
+	<select id="contentView" parameterType="String" resultType="com.kosta.project.dto.NoticeBoardDto">
+		select * from notice_board where n_no=#{n_no}
+	</select>
+	<!-- 조회수증가 -->
+	<update id="readcount">
+		update notice_board set n_hit=n_hit+1 where n_no=#{n_no}
+	</update>
+	<!-- 총게시물갯수받아오기 -->
+	<select id="getListCount" resultType="java.lang.Integer">
+		select count(*) from notice_board
+	</select>
+	<!-- 삭제하기 -->
+	<delete id="delete" parameterType="String">
+		delete notice_board where n_no=#{n_no}
+	</delete>
+	<!-- 수정하기 -->
+	<update id="modify" parameterType="com.kosta.project.dto.NoticeBoardDto">
+		update notice_board set n_writer=#{n_writer}, n_title=#{n_title}, n_contents=#{n_contents}
+		where n_no=#{n_no}
+	</update>
+	
+	<!-- back단에서 search -->
+	<select id="backpage_search_bytitle" resultType="com.kosta.project.dto.NoticeBoardDto" parameterType="java.util.HashMap">
+		select * from (select * from (select A.*,ROWNUM r from(select * from notice_board order by n_no desc) A) where r>=#{start} and r &lt;= #{end}) 
+		<where>
+		<if test="dataForSearch !=''">
+			n_title like#{dataForSearch}		
+			<if test="dataFrom!='' and dataTo==''"> 
+				and n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+			
+		</if>  
+		
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	<select id="backpage_search_byno" resultType="com.kosta.project.dto.NoticeBoardDto" parameterType="java.util.HashMap">
+		select * from (select * from (select A.*,ROWNUM r from(select * from notice_board order by n_no desc) A) where r>=#{start} and r &lt;= #{end}) 
+		<where>
+		<if test="dataForSearch !=''">
+			n_no like#{dataForSearch}		
+			<if test="dataFrom!='' and dataTo==''">
+				and n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+			
+		</if>
+		
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select> 
+	<!-- 뒷단에서 검색한게시물갯수받아오기 -->
+	<select id="getListCount_back1" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from notice_board 
+		<where>
+		<if test="dataForSearch !=''">
+			n_title like#{dataForSearch}
+			<if test="dataFrom!='' and dataTo==''">
+				and n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	<select id="getListCount_back2" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from notice_board 
+		<where>
+		<if test="dataForSearch !=''">
+			n_no like#{dataForSearch}
+			<if test="dataFrom!='' and dataTo==''">
+				and n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				and n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				and n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>
+		<if test="dataForSearch == ''">
+			<if test="dataFrom!='' and dataTo==''">
+				or n_regdate &gt; #{dataFrom}
+			</if>
+			<if test="dataFrom=='' and dataTo!=''">
+				or n_regdate &lt; #{dataTo}
+			</if>
+			<if test="dataFrom!='' and dataTo!=''">
+				or n_regdate &gt; #{dataFrom} and n_regdate &lt; #{dataTo}
+			</if>
+		</if>	
+		</where>
+	</select>
+	
+	<!-- 댓글입력 -->
+	<insert id="insertComment" parameterType="com.kosta.project.dto.CommentDTO">
+		insert into board_comment(n_no, COMMENT_SEQ, COMMENT_NAME,COMMENT_COMM,COMMENT_REGDATE)
+		values(#{n_no},COMMENT_SEQ.nextval,#{comment_name},#{comment_comm},sysdate)
+	</insert>
+	<!-- 댓글 출력 -->
+	<select id="ListComment"  parameterType="String" resultType="com.kosta.project.dto.CommentDTO">
+				select * from board_comment where n_no=#{n_no} order by n_no desc
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="commentDelete" parameterType="String">
+			delete board_comment where comment_seq = #{comment_seq}
+	
+	</delete>
+	<!-- 삭제시 댓글삭제용도 -->
+	<delete id="deletecomment" parameterType="String">
+		delete board_comment where N_NO=#{n_no}	
+	</delete>
+	
+	 
+</mapper>
